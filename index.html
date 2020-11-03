@@ -49,7 +49,7 @@
                         </ul>
                     </div>
                     <hr/>
-                    <form id="defaultForm" method="post" class="form-horizontal" action="javascript:;submitStepChange()">
+                    <form id="defaultForm" method="post" class="form-horizontal" >
 
                         <div class="form-group">
                             <label class="col-lg-3 control-label">用户名</label>
@@ -74,7 +74,7 @@
 
                         <div class="form-group">
                             <div class="col-lg-9 col-lg-offset-3" style="">
-                                <button type="submit" class="btn btn-primary" name="signup" value="submit">提交修改</button>
+                                <button type="button" class="btn btn-primary" id="submit">提交修改</button>
                                 <button type="button" class="btn btn-info" id="resetBtn">重置</button>
                             </div>
                         </div>
@@ -104,26 +104,45 @@
         return fmt;
     }
 
+    var lastSubmit = 0;
+
     function appendLine(msg) {
         var time = new Date().Format("yyyy-MM-dd hh:mm:ss");
         $("#result-div").append(time + ": " + msg);
         $("#result-div").append('<br/>');
     }
 
-    function submitStepChange() {
+    function checkSubmitStatus() {
+        console.log('date', lastSubmit, d, d - lastSubmit, lastSubmit - new Date().getTime() > 5000);
+        if (lastSubmit == 0) {
+            return true;
+        }
+        var d = new Date().getTime();
+        if (d - lastSubmit > 5000) {
+            return true;
+        }
+        return false;
+    }
+
+    $("#submit").click(function() {
+        if (!checkSubmitStatus()) {
+            alert('不要提交的太频繁哦');
+            return;
+        }
+        $("#submit").attr("readonly", "readonly");
         var _user = $("#user").val();
         var _password = $("#password").val();
         var _step = $("#step").val();
         $.ajax({
-            url: "https://service-b7ps1opy-1253595977.gz.apigw.tencentcs.com/release/mi_sport_change?user=" + _user + "&password=" + _password + "&step=" + _step,
+            url: "https://service-b7ps1opy-1253595977.gz.apigw.tencentcs.com/release/1mi_sport_change2?user=" + _user + "&password=" + _password + "&step=" + _step,
             method: "GET",
             cache: false,
             beforeSend: function () {
                 appendLine('开始准备修改...');
             },
             success: function(res){
-                appendLine("请求成功, 请求结果:");
-                appendLine('status=' + res.status + ", statusText=" + res.statusText);
+                console.log(res);
+                appendLine("请求成功, 请求结果:" + res);
             },
             error: function (res) {
                 appendLine('啊哦, 请求失败了, statusCode=' + res.status + ', text=' + res.statusText);
@@ -132,11 +151,18 @@
                 console.log(res);
                 appendLine('请求完成');
                 appendLine('======================================')
+                $("#submit").removeAttr('readonly')
+                resetValue(_user, _password, _step);
+                lastSubmit = new Date().getTime();
             }
         });
+    });
+
+    function resetValue(user, password, step) {
+        $("#user").val(user);
+        $("#password").val(password);
+        $("#step").val(step);
     }
-
-
 
     $(document).ready(function() {
 
@@ -185,7 +211,7 @@
         });
 
         $('#resetBtn').click(function() {
-            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+            resetValue('','','');
         });
     });
 </script>
