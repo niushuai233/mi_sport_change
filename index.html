@@ -1,343 +1,193 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>步数修改v0.1 by niushuai233</title>
 	<meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.css"/>
     <link rel="stylesheet" href="css/bootstrapValidator.css"/>
-
-    <!-- Include the FontAwesome CSS if you want to use feedback icons provided by FontAwesome -->
-    <!--<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />-->
-
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/bootstrapValidator.js"></script>
 </head>
+<style>
+    .function-title {
+        font-size: 30px;
+    }
+    .function-author {
+        font-style: italic;
+        font-size: 16px;
+        margin-left: 10px;
+    }
+    .function-address a:hover {
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .ps-content span {
+        font-style: italic;
+        color: red;
+    }
+</style>
 <body>
     <div class="container">
         <div class="row">
-            <!-- form: -->
             <section>
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="page-header">
-                        <h2>注册</h2>
+                        <span class="function-title">步数修改</span><span class="function-author">v0.1 by niushuai233</span>
+                        <p class="function-address"> <a href="https://github.com/niushuai233">https://github.com/niushuai233</a></p>
                     </div>
 
-                    <form id="defaultForm" method="post" class="form-horizontal" action="target.php">
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">姓名</label>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="firstName" required data-bv-trigger="keyup" data-bv-notempty-message="姓名不能为空" placeholder="姓" />
-                            </div>
-                            <div class="col-lg-4">
-                                <input type="text" class="form-control" name="lastName" required data-bv-trigger="blur" data-bv-notempty-message="姓名不能为空" placeholder="名" />
-                            </div>
-                        </div>
+                    <div class="ps-content">
+                        注意事项：<br>
+                        <ul>
+                            <li>1、从<span>应用商店</span> 或者<span>浏览器</span> 下载<span>小米运动App</span>, 打开软件并输入手机号登录</li>
+                            <li>2、请自行注册<span>小米运动app</span> 账号, 不要使用<span>小米账号</span> 登陆
+                            <li>3、不要使用<span>第三方账号</span>登录</li>
+                            <li>4、登陆之后选择 <span>第三方同步</span></li>
+                            <li>5、绑定需要同步的第三方应用</li>
+                            <li>6、小米运动app的修改数据同步较慢, 请直接打开第三方app查看同步结果</li>
+                        </ul>
+                    </div>
+                    <hr/>
+                    <form id="defaultForm" method="post" class="form-horizontal" action="javascript:;submitStepChange()">
 
                         <div class="form-group">
                             <label class="col-lg-3 control-label">用户名</label>
                             <div class="col-lg-5">
-                                <input type="text" class="form-control" name="username" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">邮箱</label>
-                            <div class="col-lg-5">
-                                <input type="text" class="form-control" name="email" />
+                                <input type="text" class="form-control" id="user" name="user" />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-lg-3 control-label">密码</label>
                             <div class="col-lg-5">
-                                <input type="password" class="form-control" name="password" />
+                                <input type="password" class="form-control" id="password" name="password" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">确认密码</label>
+                            <label class="col-lg-3 control-label">步数</label>
                             <div class="col-lg-5">
-                                <input type="password" class="form-control" name="confirmPassword" />
+                                <input type="number" class="form-control" id="step" name="step" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">性别</label>
-                            <div class="col-lg-5">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="0" /> 男
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="1" /> 女
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="gender" value="2" /> 保密
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">生日</label>
-                            <div class="col-lg-5">
-                                <input type="text" class="form-control" name="birthday" /> (YYYY/MM/DD)
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">选择语言</label>
-                            <div class="col-lg-5">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="languages[]" value="english" /> English
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="languages[]" value="french" /> French
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="languages[]" value="german" /> German
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="languages[]" value="russian" /> Russian
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="languages[]" value="other" /> Other
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">选择程序设计语言</label>
-                            <div class="col-lg-5">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="net" /> .Net
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="java" /> Java
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="c" /> C/C++
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="php" /> PHP
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="perl" /> Perl
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="ruby" /> Ruby
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="python" /> Python
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="programs[]" value="javascript" /> Javascript
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label" id="captchaOperation"></label>
-                            <div class="col-lg-2">
-                                <input type="text" class="form-control" name="captcha" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-lg-9 col-lg-offset-3">
-                                <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Sign up</button>
-                                <button type="submit" class="btn btn-primary" name="signup2" value="Sign up 2">Sign up 2</button>
-                                <button type="button" class="btn btn-info" id="validateBtn">Manual validate</button>
-                                <button type="button" class="btn btn-info" id="resetBtn">Reset form</button>
+                            <div class="col-lg-9 col-lg-offset-3" style="">
+                                <button type="submit" class="btn btn-primary" name="signup" value="submit">提交修改</button>
+                                <button type="button" class="btn btn-info" id="resetBtn">重置</button>
                             </div>
                         </div>
                     </form>
+
+                    <div id="result-div" class="result-div">
+                    </div>
                 </div>
             </section>
-            <!-- :form -->
         </div>
     </div>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    // Generate a simple captcha
-    function randomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    };
-    $('#captchaOperation').html([randomNumber(1, 100), '+', randomNumber(1, 200), '='].join(' '));
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "h+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
 
-    $('#defaultForm').bootstrapValidator({
-//        live: 'disabled',
-        message: 'This value is not valid',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-			/*
-            firstName: {
-                validators: {
-                    notEmpty: {
-                        message: '姓名不能为空'
-                    }
-                }
+    function appendLine(msg) {
+        var time = new Date().Format("yyyy-MM-dd hh:mm:ss");
+        $("#result-div").append(time + ": " + msg);
+        $("#result-div").append('<br/>');
+    }
+
+    function submitStepChange() {
+        var _user = $("#user").val();
+        var _password = $("#password").val();
+        var _step = $("#step").val();
+        $.ajax({
+            url: "https://service-b7ps1opy-1253595977.gz.apigw.tencentcs.com/release/mi_sport_change?user=" + _user + "&password=" + _password + "&step=" + _step,
+            method: "GET",
+            cache: false,
+            beforeSend: function () {
+                appendLine('开始准备修改...');
             },
-            lastName: {
-                validators: {
-                    notEmpty: {
-                        message: '姓名不能为空'
-                    }
-                }
+            success: function(res){
+                appendLine("请求成功, 请求结果:");
+                appendLine('status=' + res.status + ", statusText=" + res.statusText);
             },
-			*/
-            username: {
-                message: '用户名无效',
-                validators: {
-                    notEmpty: {
-                        message: '用户名不能位空'
-                    },
-                    stringLength: {
-                        min: 6,
-                        max: 30,
-                        message: '用户名必须大于6，小于30个字'
-                    },
-                    regexp: {
-                        regexp: /^[a-zA-Z0-9_\.]+$/,
-                        message: '用户名只能由字母、数字、点和下划线组成'
-                    },
-                    remote: {
-                        url: '#',
-                        message: '用户名不可用'
-                    },
-                    different: {
-                        field: 'password',
-                        message: '用户名和密码不能相同'
-                    }
-                }
+            error: function (res) {
+                appendLine('啊哦, 请求失败了, statusCode=' + res.status + ', text=' + res.statusText);
             },
-            email: {
-                validators: {
-                    emailAddress: {
-                        message: '输入不是有效的电子邮件地址'
-                    }
-                }
+            complete: function (res) {
+                console.log(res);
+                appendLine('请求完成');
+                appendLine('======================================')
+            }
+        });
+    }
+
+
+
+    $(document).ready(function() {
+
+        $('#defaultForm').bootstrapValidator({
+    //        live: 'disabled',
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
             },
-            password: {
-                validators: {
-                    notEmpty: {
-                        message: '密码不能位空'
-                    },
-                    identical: {
-                        field: 'confirmPassword',
-                        message: '两次密码不一致'
-                    },
-                    different: {
-                        field: 'username',
-                        message: '用户名和密码不能相同'
+            fields: {
+                user: {
+                    message: '用户名无效',
+                    validators: {
+                        notEmpty: {
+                            message: '用户名不能为空'
+                        },
+                        stringLength: {
+                            min: 3,
+                            max: 32,
+                            message: '用户名必须大于3，小于32个字'
+                        },
                     }
-                }
-            },
-            confirmPassword: {
-                validators: {
-                    notEmpty: {
-                        message: '密码不能为空'
-                    },
-                    identical: {
-                        field: 'password',
-                        message: '两次密码不一致'
-                    },
-                    different: {
-                        field: 'username',
-                        message: '用户名和密码不能相同'
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能位空'
+                        },
                     }
-                }
-            },
-            birthday: {
-                validators: {
-                    date: {
-                        format: 'YYYY/MM/DD',
-                        message: '不是合法的生日'
-                    }
-                }
-            },
-            gender: {
-                validators: {
-                    notEmpty: {
-                        message: '请选择性别'
-                    }
-                }
-            },
-            'languages[]': {
-                validators: {
-                    notEmpty: {
-                        message: '请至少选择一种语言'
-                    }
-                }
-            },
-            'programs[]': {
-                validators: {
-                    choice: {
-                        min: 2,
-                        max: 4,
-                        message: '请选择两种到四种语言'
-                    }
-                }
-            },
-            captcha: {
-                validators: {
-                    callback: {
-                        message: '答案错误',
-                        callback: function(value, validator) {
-                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
-                            return value == sum;
-                        }
+                },
+                step: {
+                    validators: {
+                        notEmpty: {
+                            message: '步数不能为空'
+                        },
                     }
                 }
             }
-        }
-    });
+        });
 
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
-    });
+        // Validate the form manually
+        $('#validateBtn').click(function() {
+            $('#defaultForm').bootstrapValidator('validate');
+        });
 
-    $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
+        $('#resetBtn').click(function() {
+            $('#defaultForm').data('bootstrapValidator').resetForm(true);
+        });
     });
-});
 </script>
 </body>
 </html>
